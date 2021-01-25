@@ -1,0 +1,30 @@
+package day_3;
+
+class rectangular_box
+{
+	int length,breadth;
+	
+	rectangular_box(int length,int breadth)
+	{
+		this.length = length;
+		this.breadth = breadth;
+	}
+	
+	double area()
+	{
+		double result;
+		result =this.length * this.breadth;
+		
+		return result;
+	}
+}
+
+
+
+public class SheepmentProject {
+	public static void main(String[] args) {
+	
+	rectangular_box ar = new rectangular_box(20,30);
+	System.out.println(ar.area());
+	}
+}
