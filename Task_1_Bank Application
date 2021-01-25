@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+public class BankingApplication {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		/*Scanner sc = new Scanner(System.in);
+		System.out.println("enter a no");
+		int i = sc.nextInt();
+		char ch = sc.next().charAt(0);
+		*/
+		
+		Scanner sc = new Scanner(System.in);
+		int amount,balance = 0,choice;  //amount-to store user entered amount,balance-user account balance
+		char cont;   //do u want to continue....
+		cont = 'y';
+		
+		do {
+			
+			System.out.println("Hello!!! Welcome to the Banking Application");
+			System.out.println("Plz enter your choice...\n 1.Deposite Amount\n 2.Withdraw Amount\n 3.Check Balance\n");
+			choice = sc.nextInt();
+			switch(choice) {
+			case 1:
+				System.out.println("Enter amount to deposit....");
+				amount = sc.nextInt();
+				balance = balance + amount;
+				System.out.println("Thank You...You deposited "+ amount + " Rs in you account");
+				
+				break;
+			case 2:
+				System.out.println("Enter amount to withdraw....\n::");
+				amount = sc.nextInt();
+				if(amount <= balance) {
+					balance = balance - amount;
+					System.out.println("Thank you for withdrawing money... :)\n");
+				}else {
+					System.out.println("Sorry sir/madam your account balance is not enough for transaction!!!");
+	        			}
+				break;
+				
+			case 3:
+				System.out.println("Your account balance is "+ balance +" Rs\nThank You :)");
+				break;
+			default:
+				System.out.println("Plz enter valid choice!!!");
+				
+					
+				
+			
+			}
+			System.out.println("Do you want to continue(y,n)?");
+			cont =sc.next().charAt(0);
+		}while(cont == 'y');
+		
+		sc.close();
+	}
+
+}
