@@ -1,0 +1,132 @@
+//package day_4;
+//   super keyword used below commented program...this is showing just what happening without super
+//
+//
+//
+//class PClass1{
+//	
+//	int i;
+//	PClass1(int a){
+//		System.out.println("in constructor of P class");
+//		i=a;
+//	}
+//	PClass1(){
+//		System.out.println("Paraless constructor in PClass1");
+//	}
+//}
+//
+//class ChClass1 extends PClass1{
+//	int j;
+//	ChClass1(int a,int b){
+//		System.out.println("in constructor of Ch class");
+//		i=a;
+//		j=b;
+//	}
+//	ChClass1(){
+//		System.out.println("Paraless constructor in Chclass1");
+//	}
+//}
+//
+//class GChClass1 extends ChClass1{
+//	//grand child class
+//	int k;
+//	GChClass1(int a,int b,int c){
+//		System.out.println("in constructor of G CH class");
+//		i=a;
+//		j=b;
+//		k=c;
+//	}
+//	GChClass1(){
+//		System.out.println("Parless constructor in GChClass1");
+//	}
+//}
+//public class SuperDemo {
+//
+//	public static void main(String[] args) {
+//		// TODO Auto-generated method stub
+//		
+//		GChClass1 g = new GChClass1();
+//		g.i=1;
+//		g.j=2;
+//		g.k=3;
+//		System.out.println(" value of i = "+g.i +" j = " +g.j + " k = "+g.k);
+//		
+//
+//				 
+//	}
+//
+//}
+
+
+
+package day_4;
+
+class PClass1{
+	
+	int i;
+	PClass1(int a){
+		System.out.println("in constructor of P class");
+		i=a;
+	}
+	PClass1(){
+		System.out.println("Paraless constructor in PClass1");
+	}
+}
+
+class ChClass1 extends PClass1{
+	
+	int j;
+	
+	ChClass1(int a,int b){
+		super(a);									//super keyword is used
+		System.out.println("in constructor of Ch class");
+		
+		j=b;
+	}
+	ChClass1(){
+		System.out.println("Paraless constructor in Chclass1");
+	}
+}
+
+class GChClass1 extends ChClass1{
+	//grand child class
+	int k;
+	int m;
+	GChClass1(int a,int b,int c){
+		super(a,b);                                               //super keyword is used
+		System.out.println("in constructor of G CH class");
+		
+		k=c;
+		System.out.println("con 3 of grand child");
+	}
+	
+	GChClass1(int a,int b,int c,int d){
+		this(a,b,c);                                               //this keyword is used
+		System.out.println("in constructor of G CH class");
+		
+		k=c;
+		System.out.println("con 4 of grand child");
+	}
+	
+	
+	GChClass1(){
+		System.out.println("Parless constructor in GChClass1");
+	}
+}
+public class SuperDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		GChClass1 g = new GChClass1();
+		g.i=1;
+		g.j=2;
+		g.k=3;
+		System.out.println(" value of i = "+g.i +" j = " +g.j + " k = "+g.k);
+		
+
+				 
+	}
+
+}
+
