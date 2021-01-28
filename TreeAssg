@@ -1,0 +1,54 @@
+package day_6;
+
+class Tree{
+	int TreeCode;
+	int TreeHeight;
+	int BaseWidth;
+	int time;
+	
+	Tree(int TreeCode,int TreeHeight,int Basewidth)
+	{
+		this.TreeCode = TreeCode;
+		this.TreeHeight = TreeHeight;
+		this.BaseWidth = BaseWidth;
+	}
+	
+	
+	void Displaytree()
+	{
+		System.out.println("TreeCode =" +TreeCode );
+		System.out.println("Tree Height =" +TreeHeight );
+		System.out.println("BaseWidth =" +BaseWidth );
+		System.out.println("time spent on tree(in hours) daily is " + time);
+	}
+	void annualUpdate(int th,int bw,int t)
+	{
+		TreeHeight = TreeHeight + th;
+		BaseWidth = BaseWidth + bw;
+//		int time;
+		this.time = t;
+		
+		
+		
+	}
+	
+	
+}
+
+
+
+
+public class TreeAssg {
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Tree t = new Tree(1001,20,1);
+		t.Displaytree();
+		t.annualUpdate(2, 1, 5);
+		t.Displaytree();
+		
+	}
+
+}
