@@ -1,0 +1,200 @@
+package day_5;
+
+import java.util.Scanner;
+
+
+class BankTrans{
+	int balance,amount;
+	BankTrans(int balance,int amount)
+	{
+		this.balance = balance;
+		this.balance = amount;
+	}
+	void withdraw(int amount)
+	{
+		balance = balance - amount;
+		
+	}
+	void deposite(int amount)
+	{
+		balance = balance + amount;
+	}
+	
+	void CheckBalance()
+	{
+		System.out.println("Your account balance is "+ balance);
+	}
+	
+}	
+
+class ICICITrans extends BankTrans{
+	ICICITrans(int balance,int amount)
+	{
+		super(balance,amount);
+		
+	}
+	void withdraw(int amount)
+	{
+		if(amount > balance) {
+			
+		System.out.println("Transaction is not allowed");
+		}
+		else {
+			balance = balance - amount;
+		}
+		
+	}
+
+	void deposite(int amount)
+	{
+		balance = balance + amount;
+	}
+	void CheckBalance()
+	{
+		System.out.println("Your account balance is "+ balance);
+	}
+}
+
+
+class SBITrans extends BankTrans{
+	
+	SBITrans(int balance,int amount)
+	{
+		super(balance,amount);
+		
+	}
+	void withdraw(int amount)
+	{
+		if(amount > balance) {
+			
+		System.out.println("Transaction is not allowed and u have fined 20rs for it");
+		balance = balance - 20;
+		}
+		else {
+			balance = balance - amount;
+		}
+		
+	}
+	
+	void deposite(int amount)
+	{
+		balance = balance + amount;
+	}
+	
+	void CheckBalance()
+	{
+		System.out.println("Your account balance is "+ balance);
+	}
+	
+}
+
+class ATM{
+	void forwithdraw(BankTrans i,int amt)
+	{
+		
+		i.withdraw(amt);
+		
+	}
+	void forDeposite(BankTrans i,int amt)
+	{
+		
+		i.deposite(amt);
+		
+	}
+	
+	void forCheckBal(BankTrans i)
+	{
+		
+		i.CheckBalance();
+		
+	}
+	
+
+}
+
+
+
+
+
+public class BannkTransDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		ATM a = new ATM();
+		
+		BankTrans b = new BankTrans(1000,0);
+		ICICITrans i = new ICICITrans(1000,0);
+		SBITrans s = new SBITrans(1000,0);
+		
+		Scanner sc = new Scanner(System.in);
+		do {
+		System.out.println("press 1 for ICCICI card and 2 for SBI card");
+		int card = sc.nextInt();
+		int choice,amt,cont;
+		if(card == 1)
+		{
+			System.out.println("press 1 for Deposite   2 for Withdraw   3 for check Balance");
+			choice = sc.nextInt();
+			if (choice == 1)
+			{
+				System.out.println("enter amount to Deposite");
+			    amt = sc.nextInt();
+			   a.forDeposite(s,amt);
+			}
+			else if(choice ==2)
+			{
+				System.out.println("enter amount to withdraw");
+			    amt = sc.nextInt();
+				
+				a.forwithdraw(s,amt);
+			}
+			else if(choice == 3)
+			{
+				a.forCheckBal(i);
+			}
+			else
+				System.out.println("Not valid choice");
+		}
+		else if(card == 2)
+		{
+			System.out.println("press 1 for Deposite   2 for Withdraw   3 for check Balance");
+			choice = sc.nextInt();
+			if (choice == 1)
+			{
+				System.out.println("enter amount to Deposite");
+			    amt = sc.nextInt();
+			   a.forDeposite(i,amt);
+			}
+			else if(choice ==2)
+			{
+				System.out.println("enter amount to withdraw");
+			    amt = sc.nextInt();
+				
+				a.forwithdraw(i,amt);
+			}
+			else if(choice == 3)
+			{
+				a.forCheckBal(i);
+			}
+			else
+				System.out.println("Not valid choice");
+		}
+		else {
+			System.out.println("Plz select valid card");
+		}
+		
+		
+		System.out.println("Do you want to continue(1/0)");
+		cont = sc.nextInt();
+		if(cont == 0)
+		{
+			break;
+		}
+		
+		}while(true);
+		
+		
+	}
+
+}
