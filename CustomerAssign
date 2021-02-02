@@ -24,7 +24,7 @@ class Customer{
 	
 	public Customer(String custNo, String custName, String catagory) {
 		super();
-//		String cn = custNo.toString();
+		String cn = custNo.toString();
 //		System.out.println(cn.charAt(0));
 		this.custNo = custNo;
 		this.custName = custName;
@@ -32,7 +32,7 @@ class Customer{
 		
 		
 		try {
-			if(custName.length() <= 3  || s1.equals(custName) || s2.equals(catagory) || s3.equals(catagory) /*||cn.charAt(0) !='c'  || cn.charAt(0) != 'C'*/)
+			if(custName.length() <= 3  || s1.equals(catagory) || s2.equals(catagory) || s3.equals(catagory) ||cn.charAt(0) !='c'  || cn.charAt(0) != 'C')
 			{
 				throw new InvalidInputException();
 			}
