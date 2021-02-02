@@ -1,0 +1,81 @@
+package day_9;
+
+import java.util.*;
+
+
+class WrongPassException extends Exception
+{
+	public String getMessage()
+	{
+		String str ="invalid password....ur account is blocked";
+		return str;
+	}
+}
+class User {
+	int userID;
+	String password;
+	Scanner sc = new Scanner(System.in);
+	public User(int userID, String password) {
+		super();
+		this.userID = userID;
+		this.password = password;
+	}
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
+	int cont = 3;
+	
+	void checkPass()
+	{
+		try {
+		while(cont >0) {
+			
+			System.out.println("enter password");
+			String pass = sc.next();
+		if(password.equals(pass))
+		{
+			System.out.println("Welcome");
+			break;
+		}
+		else
+		{
+			cont--;
+		}
+		
+		}
+		
+		if(cont == 0)
+		{
+			throw new WrongPassException();
+		}
+	}catch(WrongPassException e)
+
+		{
+		System.out.println(e.getMessage());
+		}
+		
+	}
+}
+
+
+public class PasswordCheck {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		
+		User u = new User(101,"12346");
+		
+		u.checkPass();
+	
+		
+		
+
+	}
+
+}
