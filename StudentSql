@@ -1,0 +1,282 @@
+mport java.sql.*;
+import java.util.Scanner;
+
+class PopulateStudent{
+    StudentDAO sd = new StudentDAO();
+
+    void addStudent(Student st)
+    {
+
+        sd.insertStudent(st);
+    }
+
+    void getStudent(int sid)
+    {
+
+        sd.searchStudent(sid);
+    }
+
+    void modifyMarks(int sid,int marks)
+    {
+
+        sd.updateMarks(sid,marks);
+    }
+
+    void removeStudent(int sid)
+    {
+
+        sd.deleteStudent(sid);
+    }
+
+
+
+
+}
+
+
+class Student{
+    int sid;
+    String name;
+    int marks;
+    int attendance;
+    String remark;
+
+    public Student(int sid, String name, int marks, int attendance, String remark) {
+        this.sid = sid;
+        this.name = name;
+        this.marks = marks;
+        this.attendance = attendance;
+        this.remark = remark;
+    }
+
+    public int getSid() {
+
+        return sid;
+    }
+
+    public void setSid(int sid) {
+
+        this.sid = sid;
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getMarks() {
+        return marks;
+    }
+
+    public void setMarks(int marks) {
+        this.marks = marks;
+    }
+
+    public int getAttendance() {
+        return attendance;
+    }
+
+    public void setAttendance(int attendance) {
+        this.attendance = attendance;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+}
+
+
+class StudentDAO{
+    Connection con = null;
+    ResultSet rs = null;
+    PreparedStatement ps = null;
+    Scanner sc = new Scanner(System.in);
+
+    void initOperation(){
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            System.out.println("Driver Loaded!!!");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","System","tiger");
+            System.out.println("Connected Successfully!!!  :)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    void closingOperation()
+    {
+        try {
+            rs.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    void insertStudent(Student st)
+    {
+
+            String query="INSERT INTO student VALUES(?,?,?,?,?)";
+            try {
+                ps = con.prepareStatement(query);
+
+                ps.setInt(1,st.getSid());
+                ps.setString(2,st.getName());
+                ps.setInt(3,st.getMarks());
+                ps.setInt(4,st.getAttendance());
+                ps.setString(5,st.getRemark());
+
+                int r=0;
+                r=ps.executeUpdate(query);
+                System.out.println("Rows updated ="+r);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    void searchStudent(int id)
+    {
+        try {
+            String query="SELECT * FROM student WHERE sid = ?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1,id);
+
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+                System.out.println("Id="+rs.getInt(1)+" name ="+rs.getString(2)+" marks ="+rs.getInt(3));
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    void updateMarks(int sid,int marks)
+    {
+        String query = "UPDATE student SET marks = ? WHERE Stid = ?";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setInt(1,marks);
+            ps.setInt(2,sid);
+
+            int i =0;
+            i = ps.executeUpdate();
+            System.out.println("rows affected"+i);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    void deleteStudent(int sid)
+    {
+        String query ="DELETE student WHERE stid = ?";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setInt(1,sid);
+            int i = 0;
+            i=ps.executeUpdate();
+            System.out.println("rows affected"+i);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+}
+
+public class StudentApplication{
+    public static void main(String [] args)
+    {
+        Scanner sc = new Scanner(System.in);
+
+        int sid;
+        String name;
+        int marks;
+        int attendance;
+        String remark;
+        int choice;
+        StudentDAO s = new StudentDAO();
+        PopulateStudent ps = new PopulateStudent();
+
+        s.initOperation();
+
+
+        do {
+            System.out.println("Enter \n1.Add Student\n2.Search Student\n3.Modify Student\n4.Remove Student\n5.Stop");
+          choice = sc.nextInt();
+
+            if(choice == 1)
+            {
+                System.out.println("enter student id");
+                sid =sc.nextInt();
+                System.out.println("enter student name");
+                name =sc.next();
+                System.out.println("enter marks");
+                marks = sc.nextInt();
+                System.out.println("enter attendance");
+                attendance = sc.nextInt();
+                System.out.println("enter student remark");
+                remark = sc.nextLine();
+
+                Student st = new Student(sid,name,marks,attendance,remark);
+                ps.addStudent(st);
+                System.out.println("Insertion of student done successfully :)");
+
+            }
+
+            else if(choice == 2)
+            {
+                System.out.println("enter student id for searching");
+                sid = sc.nextInt();
+                ps.getStudent(sid);
+
+
+            }
+
+            else if(choice ==3)
+            {
+                System.out.println("enter marks and respective student id to update");
+                marks = sc.nextInt();
+                sid=sc.nextInt();
+                ps.modifyMarks(sid,marks);
+                System.out.println("Modification of student done successfully :)");
+            }
+            else if(choice == 4)
+            {
+                System.out.println("enter student id to delete");
+                sid = sc.nextInt();
+                ps.removeStudent(sid);
+                System.out.println("Student removed successfully :)");
+            }
+            else if(choice == 5)
+            {
+                s.closingOperation();
+                break;
+            }
+
+            else
+                System.out.println("plz select valid option :(");
+        }while(true);
+
+    }
+
+}
